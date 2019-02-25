@@ -1,0 +1,38 @@
+// ==UserScript==
+// @name         Yande.re 大图列表+标签翻译
+// @namespace    https://4cy.me/
+// @version      0.1
+// @description  Stylish倒了之后的Yande.re大图插件替代品
+// @author       某亚瑟
+// @match        https://yande.re/post*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    appendCSS();
+function appendCSS(){
+        var cssText = "";
+
+        //底部信息css
+        cssText += '.tag-type-circle:after{content:"社团";color:#aa4}.tag-type-copyright:after{content:"版权";color:#aa4}.tag-type-artist:after{content:"画师";color:#aa4}.tag-type-character:after{content:"角色";color:#aa4}.tag-type-faults:after{content:"错误";color:#aa4}.tag-type-style:after{content:"类型";color:#aa4}#highres{color:red;border:1px dashed white;padding:4px 0 4px 4px;margin:4px 0 4px -4px;display:inline-block;width:220px}#highres:hover{color:yellow!important;border-color:red}.sidebar{margin:0!important;max-width:230px!important}.action-post-index .content{width:-moz-calc(100% - 230px)!important}#content{width:100%!important}div.content div[align=center]{display:none!important}span.directlink-info{display:none!important}span.plid{display:none!important}span.directlink-res{display:block!important}.directlink.smallimg{background:black!important}#post-list-posts li{width:310px!important;visibility:visible!important;display:inline-block!important}div.inner{width:310px!important;height:300px!important}img.preview{width:auto!important;max-width:300px!important;height:auto!important;max-height:300px!important;border:none!important}#lsidebar{display:none!important}';
+
+        console.log('css创建完成');
+
+        var element = document.createElement('link');
+        element.rel="stylesheet";
+        element.type="text/css";
+        element.href='data:text/css,'+cssText;
+
+        document.documentElement.appendChild(element);
+
+        var modStyle = document.querySelector('#modCSS');
+        if (modStyle === null){
+            modStyle = document.createElement('style');
+            modStyle.id = 'modCSS';
+            document.body.appendChild(modStyle);
+            modStyle.innerHTML = cssText;
+        }
+        console.log('css已添加');
+    }
+})();
