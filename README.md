@@ -10,4 +10,4 @@
 欢迎各路大神提交新的翻译
 
 ## 效果演示
-![https://raw.githubusercontent.com/mouyase/yande.re_large_picture_script/master/TrYunfGBUn.png]()
+![](https://raw.githubusercontent.com/mouyase/yande.re_large_picture_script/master/TrYunfGBUn.png)
