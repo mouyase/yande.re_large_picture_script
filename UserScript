@@ -6,33 +6,156 @@
 // @author       某亚瑟
 // @match        https://yande.re/post*
 // @grant        none
+// @require    https://code.jquery.com/jquery-3.3.1.js
 // ==/UserScript==
-
 (function() {
     'use strict';
+	
+	
+    /*关键词表*/
+    var keywords = [
+		["girls frontline", "少女前线"],
+		["suomi kp31 (girls frontline)", "索米KP31（少女前线）"]
+	];
+	
+	
     appendCSS();
-function appendCSS(){
+    modifyHtml();
+    function appendCSS() {
         var cssText = "";
 
         //底部信息css
-        cssText += '.tag-type-circle:after{content:"社团";color:#aa4}.tag-type-copyright:after{content:"版权";color:#aa4}.tag-type-artist:after{content:"画师";color:#aa4}.tag-type-character:after{content:"角色";color:#aa4}.tag-type-faults:after{content:"错误";color:#aa4}.tag-type-style:after{content:"类型";color:#aa4}#highres{color:red;border:1px dashed white;padding:4px 0 4px 4px;margin:4px 0 4px -4px;display:inline-block;width:220px}#highres:hover{color:yellow!important;border-color:red}.sidebar{margin:0!important;max-width:230px!important}.action-post-index .content{width:-moz-calc(100% - 230px)!important}#content{width:100%!important}div.content div[align=center]{display:none!important}span.directlink-info{display:none!important}span.plid{display:none!important}span.directlink-res{display:block!important}.directlink.smallimg{background:black!important}#post-list-posts li{width:310px!important;visibility:visible!important;display:inline-block!important}div.inner{width:310px!important;height:300px!important}img.preview{width:auto!important;max-width:300px!important;height:auto!important;max-height:300px!important;border:none!important}#lsidebar{display:none!important}';
+        cssText += '.tag-type-circle:after {';
+        cssText += '	content: "社团";';
+        cssText += '	color: #aa4';
+        cssText += '}';
 
-        console.log('css创建完成');
+        cssText += '.tag-type-copyright:after {';
+        cssText += '	content: "版权";';
+        cssText += '	color: #aa4';
+        cssText += '}';
+
+        cssText += '.tag-type-artist:after {';
+        cssText += '	content: "画师";';
+        cssText += '	color: #aa4';
+        cssText += '}';
+
+        cssText += '.tag-type-character:after {';
+        cssText += '	content: "角色";';
+        cssText += '	color: #aa4';
+        cssText += '}';
+
+        cssText += '.tag-type-faults:after {';
+        cssText += '	content: "错误";';
+        cssText += '	color: #aa4';
+        cssText += '}';
+
+        cssText += '.tag-type-style:after {';
+        cssText += '	content: "类型";';
+        cssText += '	color: #aa4';
+        cssText += '}';
+
+        cssText += '#highres {';
+        cssText += '	color: red;';
+        cssText += '	border: 1px dashed white;';
+        cssText += '	padding: 4px 0 4px 4px;';
+        cssText += '	margin: 4px 0 4px -4px;';
+        cssText += '	display: inline-block;';
+        cssText += '	width: 220px';
+        cssText += '}';
+
+        cssText += '#highres:hover {';
+        cssText += '	color: yellow!important;';
+        cssText += '	border-color: red';
+        cssText += '}';
+
+        cssText += '.sidebar {';
+        cssText += '	margin: 0!important;';
+        cssText += '	max-width: 230px!important';
+        cssText += '}';
+
+        cssText += '.action-post-index .content {';
+        cssText += '	width: 80%!important';
+        cssText += '}';
+
+        cssText += '#content {';
+        cssText += '	width: 100%!important';
+        cssText += '}';
+
+        cssText += 'div.content div[align=center] {';
+        cssText += '	display: none!important';
+        cssText += '}';
+
+        cssText += 'span.directlink-info {';
+        cssText += '	display: none!important';
+        cssText += '}';
+
+        cssText += 'span.plid {';
+        cssText += '	display: none!important';
+        cssText += '}';
+
+        cssText += 'span.directlink-res {';
+        cssText += '	display: block!important';
+        cssText += '}';
+
+        cssText += '.directlink.smallimg {';
+        cssText += '	background: black!important';
+        cssText += '}';
+
+        cssText += '#post-list-posts li {';
+        cssText += '	width: 310px!important;';
+        cssText += '	visibility: visible!important;';
+        cssText += '	display: inline-block!important';
+        cssText += '}';
+
+        cssText += 'div.inner {';
+        cssText += '	width: 310px!important;';
+        cssText += '	height: 300px!important';
+        cssText += '}';
+
+        cssText += 'div.content {';
+        cssText += '    float: right;';
+        cssText += '}';
+
+        cssText += 'img.preview {';
+        cssText += '	width: auto!important;';
+        cssText += '	max-width: 300px!important;';
+        cssText += '	height: auto!important;';
+        cssText += '	max-height: 300px!important;';
+        cssText += '	border: none!important';
+        cssText += '}';
+
+        cssText += '#lsidebar {';
+        cssText += '	display: none!important';
+        cssText += '}';
+        console.log('CSS创建完成');
 
         var element = document.createElement('link');
-        element.rel="stylesheet";
-        element.type="text/css";
-        element.href='data:text/css,'+cssText;
+        element.rel = "stylesheet";
+        element.type = "text/css";
+        element.href = 'data:text/css,' + cssText;
 
         document.documentElement.appendChild(element);
 
         var modStyle = document.querySelector('#modCSS');
-        if (modStyle === null){
+        if (modStyle === null) {
             modStyle = document.createElement('style');
             modStyle.id = 'modCSS';
             document.body.appendChild(modStyle);
             modStyle.innerHTML = cssText;
         }
-        console.log('css已添加');
+        console.log('CSS已添加');
+    }
+    function modifyHtml() {
+        console.log('TAG汉化开始');
+        for (var i = 0; i < keywords.length; i++) {
+            var string = $("a:contains(" + keywords[i][0] + ")").map(function() {
+                if ($(this).text() == keywords[i][0]) {
+                    return this;
+                }
+            });
+            string.html(keywords[i][1]);
+        }
+        console.log('TAG汉化结束');
     }
 })();
