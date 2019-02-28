@@ -4,7 +4,7 @@
  - 图片修改为大图
  - 标签汉化
 
-## 项目地址
-[https://github.com/mouyase/Yande.re_large_picture_script](https://github.com/mouyase/Yande.re_large_picture_script)
+## 下载
+[Stylish倒了之后的Yande.re大图插件替代品](Stylish倒了之后的Yande.re大图插件替代品)
 
-欢迎各路大神提交新的翻译。
+欢迎各路大神提交新的翻译
