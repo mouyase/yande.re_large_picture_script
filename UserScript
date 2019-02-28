@@ -6,19 +6,19 @@
 // @author       某亚瑟
 // @match        https://yande.re/post*
 // @grant        none
-// @require    https://code.jquery.com/jquery-3.3.1.js
+// @require      https://code.jquery.com/jquery-3.3.1.js
 // ==/UserScript==
 (function() {
     'use strict';
-	
-	
+
+
     /*关键词表*/
     var keywords = [
 		["girls frontline", "少女前线"],
 		["suomi kp31 (girls frontline)", "索米KP31（少女前线）"]
 	];
-	
-	
+
+
     appendCSS();
     modifyHtml();
     function appendCSS() {
