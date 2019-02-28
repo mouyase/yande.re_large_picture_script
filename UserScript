@@ -20,7 +20,32 @@
 		["maid","女仆"],
 		["thighhighs","过膝袜"],
 		["pantsu","胖次"],
-		["loli","萝莉"]
+		["loli","萝莉"],
+		["pussy juice","妹汁"],
+		["panty pull","半脱胖次"],
+		["pussy","小穴"],
+		["bra","胸罩"],
+		["sex","性交"],
+		["feet","脚"],
+		["girls und panzer","少女与战车"],
+		["girls und panzer gekijouban","少女与战车剧场版"],
+		["ass grab","抓屁股"],
+		["censored","骑兵"],
+		["cleavage","事业线"],
+		["nipples","乳头"],
+		["seifuku","制服"],
+		["dress","连衣裙"],
+		["ass","屁股"],
+		["bikini","比基尼"],
+		["sword","剑"],
+		["penis","杰宝"],
+		["anus","菊花"],
+		["nopan","没有胖次"],
+		["no bra","没有胸罩"],
+		["uncensored","步兵"],
+		["paizuri","乳交"],
+		["naked","裸体"],
+		["bathing","洗澡"]
 	];
 
 
@@ -159,7 +184,7 @@
                     return this;
                 }
             });
-            string.html(keywords[i][1]);
+            string.html(keywords[i][1]+"【"+keywords[i][0]+"】");
         }
         console.log('TAG汉化结束');
     }
