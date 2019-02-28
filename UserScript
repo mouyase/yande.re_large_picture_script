@@ -10,7 +10,7 @@
 // ==/UserScript==
 (function() {
     'use strict';
-
+    var jquery = $.noConflict();
 
     /*关键词表*/
     var keywords = [
@@ -181,8 +181,8 @@
     function modifyHtml() {
         console.log('TAG汉化开始');
         for (var i = 0; i < keywords.length; i++) {
-            var string = $("a:contains(" + keywords[i][0] + ")").map(function() {
-                if ($(this).text() == keywords[i][0]) {
+            var string = jquery("a:contains(" + keywords[i][0] + ")").map(function() {
+                if (jquery(this).text() == keywords[i][0]) {
                     return this;
                 }
             });
