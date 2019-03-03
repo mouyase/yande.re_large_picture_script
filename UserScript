@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Yande.re 大图列表+标签翻译
+// @name         Yande.re 大图浏览脚本
 // @namespace    https://github.com/mouyase/Yande.re_large_picture_script
 // @version      0.1
 // @description  Stylish倒了之后的Yande.re大图插件替代品
@@ -7,53 +7,10 @@
 // @match        https://yande.re/post*
 // @match        https://yande.re.4cy.me/post*
 // @grant        none
-// @require      https://code.jquery.com/jquery-3.3.1.js
 // ==/UserScript==
 (function() {
     'use strict';
-    var jquery = $.noConflict();
-
-    /*关键词表*/
-    var keywords = [
-		["girls frontline", "少女前线"],
-		["suomi kp31 (girls frontline)", "索米KP31（少女前线）"],
-		["animal ears","兽耳"],
-		["maid","女仆"],
-		["thighhighs","过膝袜"],
-		["pantsu","胖次"],
-		["loli","萝莉"],
-		["pussy juice","妹汁"],
-		["panty pull","半脱胖次"],
-		["pussy","小穴"],
-		["bra","胸罩"],
-		["sex","性交"],
-		["feet","脚"],
-		["girls und panzer","少女与战车"],
-		["girls und panzer gekijouban","少女与战车剧场版"],
-		["ass grab","抓屁股"],
-		["censored","骑兵"],
-		["cleavage","事业线"],
-		["nipples","乳头"],
-		["seifuku","制服"],
-		["dress","连衣裙"],
-		["ass","屁股"],
-		["bikini","比基尼"],
-		["sword","剑"],
-		["penis","杰宝"],
-		["anus","菊花"],
-		["nopan","没有胖次"],
-		["no bra","没有胸罩"],
-		["uncensored","步兵"],
-		["paizuri","乳交"],
-		["naked","裸体"],
-		["bathing","洗澡"],
-        ["the idolm@ster","偶像大师"],
-        ["the idolm@ster cinderella girls","偶像大师灰姑娘女孩"]
-	];
-
-
     appendCSS();
-    modifyHtml();
     function appendCSS() {
         var cssText = "";
 
@@ -178,19 +135,5 @@
             modStyle.innerHTML = cssText;
         }
         console.log('CSS已添加');
-    }
-
-
-    function modifyHtml() {
-        console.log('TAG汉化开始');
-        for (var i = 0; i < keywords.length; i++) {
-            var string = jquery("a:contains(" + keywords[i][0] + ")").map(function() {
-                if (jquery(this).text() == keywords[i][0]) {
-                    return this;
-                }
-            });
-            string.html(keywords[i][1]+"【"+keywords[i][0]+"】");
-        }
-        console.log('TAG汉化结束');
     }
 })();
