@@ -1,15 +1,48 @@
 // ==UserScript==
-// @name         Yande.re 大图浏览脚本
+// @name         Booru 大图浏览脚本
 // @namespace    https://github.com/mouyase/yande.re_large_picture_script
-// @version      0.1
+// @version      0.2
 // @description  Stylish倒了之后的Yande.re大图插件替代品
 // @author       某亚瑟
-// @match        https://yande.re/post*
-// @match        https://yande.re.4cy.me/post*
+// @match        https://yande.re/*
+// @match        http://konachan.com/*
+// @match        http://konachan.net/*
+// @match        https://konachan.com/*
+// @match        https://konachan.net/*
 // @grant        none
 // ==/UserScript==
-(function() {
+(function () {
     'use strict';
+
+    var imgList = new Array();
+    window.imgList = imgList;
+    var zoom = '<div id="zoom" style="display: none;"></div>';
+    jQuery("body").append(zoom);
+    var $zoom = jQuery("#zoom");
+    $zoom.hide();
+    function addZoomPreview() {
+        var $allPostLi = jQuery("#post-list-posts > li");
+        var id = 0;
+        jQuery.each($allPostLi, function (index, item) {
+            var $item = jQuery(item);
+            var $a = $item.find(".thumb");
+            $a.attr("href", "javascript:void(0)");
+            var reg = "(\/files.+?(\.jpg|\.png))";
+            var result = jQuery($item).html().match(reg);
+            var imgurl = result[0];
+            imgList[id] = imgurl;
+            jQuery("body").append('<img src="https:/' + imgurl + '" style="display: none;">');
+            $item.click(function () {
+                var reg = "(\/files.+?(\.jpg|\.png))";
+                var result = jQuery(this).html().match(reg);
+                var imgurl = result[0];
+                $zoom.show();
+                $zoom.html('<div id="zoom" style="position: fixed; top:0; left:0; width:auto; height:100%;" onclick="this.hide()"><img style="width:auto; height:100%;" src="https:/' + imgurl + '"></div>');
+            });
+            id++;
+        });
+    }
+    addZoomPreview();
     appendCSS();
     function appendCSS() {
         var cssText = "";
@@ -118,6 +151,10 @@
         cssText += '#lsidebar {';
         cssText += '	display: none!important';
         cssText += '}';
+
+        cssText += 'iframe {';
+        cssText += '	display: none!important';
+        cssText += '}';
         console.log('CSS创建完成');
 
         var element = document.createElement('link');
@@ -136,4 +173,42 @@
         }
         console.log('CSS已添加');
     }
+    window.addEventListener('keyup', function (e) {
+        console.log(e.keyCode);
+        var imgurl = $zoom.find("img").attr("src");
+        var index = 0;
+        for (var i = 0; i < imgList.length; i++) {
+            if ('https:/' + imgList[i] == imgurl) {
+                index = i;
+                break;
+            }
+        }
+        switch (e.keyCode) {
+            case 37:
+                if (index != 0) {
+                    imgurl = imgList[index - 1];
+                    $zoom.html('<div id="zoom" style="position: fixed; top:0; left:0; width:auto; height:100%;" onclick="this.hide()"><img style="width:auto; height:100%;" src="https:/' + imgurl + '"></div>');
+                } else {
+                    document.querySelector('a.previous_page').click();
+                }
+                break;
+            case 39:
+                if (index != imgList.length - 1) {
+                    imgurl = imgList[index + 1];
+                    $zoom.html('<div id="zoom" style="position: fixed; top:0; left:0; width:auto; height:100%;" onclick="this.hide()"><img style="width:auto; height:100%;" src="https:/' + imgurl + '"></div>');
+                } else {
+                    document.querySelector('a.next_page').click();
+                }
+                break;
+            case 191:
+                imgurl = imgList[index];
+                if ($zoom.css("display") == "none") {
+                    $zoom.show();
+                } else {
+                    $zoom.hide();
+                }
+                $zoom.html('<div id="zoom" style="position: fixed; top:0; left:0; width:auto; height:100%;" onclick="this.hide()"><img style="width:auto; height:100%;" src="https:/' + imgurl + '"></div>');
+                break;
+        }
+    });
 })();
