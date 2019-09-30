@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Booru 大图浏览脚本
+// @name         Booru大图预览插件
 // @namespace    https://github.com/mouyase/yande.re_large_picture_script
 // @version      0.2
-// @description  Stylish倒了之后的Yande.re大图插件替代品
+// @description  Booru大图预览插件，按下键盘 ↓ 开启大图模式， ← → 翻页，可单手操作
 // @author       某亚瑟
 // @match        https://yande.re/*
 // @match        http://konachan.com/*
@@ -26,7 +26,7 @@
         jQuery.each($allPostLi, function (index, item) {
             var $item = jQuery(item);
             var $a = $item.find(".thumb");
-            $a.attr("href", "javascript:void(0)");
+            // $a.attr("href", "javascript:void(0)");
             var reg = "(\/files.+?(\.jpg|\.png))";
             var result = jQuery($item).html().match(reg);
             var imgurl = result[0];
@@ -200,7 +200,7 @@
                     document.querySelector('a.next_page').click();
                 }
                 break;
-            case 191:
+            case 40:
                 imgurl = imgList[index];
                 if ($zoom.css("display") == "none") {
                     $zoom.show();
