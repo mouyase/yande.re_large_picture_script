@@ -32,13 +32,13 @@
             var imgurl = result[0];
             imgList[id] = imgurl;
             jQuery("body").append('<img src="https:/' + imgurl + '" style="display: none;">');
-            $item.click(function () {
-                var reg = "(\/files.+?(\.jpg|\.png))";
-                var result = jQuery(this).html().match(reg);
-                var imgurl = result[0];
-                $zoom.show();
-                $zoom.html('<div id="zoom" style="position: fixed; top:0; left:0; width:auto; height:100%;" onclick="this.hide()"><img style="width:auto; height:100%;" src="https:/' + imgurl + '"></div>');
-            });
+            // $item.click(function () {
+            //     var reg = "(\/files.+?(\.jpg|\.png))";
+            //     var result = jQuery(this).html().match(reg);
+            //     var imgurl = result[0];
+            //     $zoom.show();
+            //     $zoom.html('<div id="zoom" style="position: fixed; top:0; left:0; width:auto; height:100%;" onclick="this.hide()"><img style="width:auto; height:100%;" src="https:/' + imgurl + '"></div>');
+            // });
             id++;
         });
     }
