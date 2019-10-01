@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Booru大图预览插件
+// @name         Booru 大图预览插件
 // @namespace    https://github.com/mouyase/yande.re_large_picture_script
-// @version      0.2
+// @version      0.2.1
 // @description  Booru大图预览插件，按下键盘 ↑ ↓ 开启大图模式（上为从头开始，下为从尾开始）， ← → 翻页，可单手操作
 // @author       某亚瑟
 // @match        https://yande.re/*
@@ -31,7 +31,6 @@
             var result = jQuery($item).html().match(reg);
             var imgurl = result[0];
             imgList[id] = imgurl;
-            jQuery("body").append('<img src="https:/' + imgurl + '" style="display: none;">');
             // $item.click(function () {
             //     var reg = "(\/files.+?(\.jpg|\.png))";
             //     var result = jQuery(this).html().match(reg);
@@ -41,6 +40,12 @@
             // });
             id++;
         });
+        window.index = 0;
+        window.cacheImage = function () {
+            jQuery("body").append('<img src="https:/' + imgList[window.index] + '" style="display: none;" onload="cacheImage()">');
+            window.index++;
+        }
+        jQuery("body").append('<img src="https:/' + imgList[window.index] + '" style="display: none;" onload="cacheImage()">');
     }
     addZoomPreview();
     appendCSS();
