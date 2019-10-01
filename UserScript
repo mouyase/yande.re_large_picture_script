@@ -178,8 +178,8 @@
         }
         console.log('CSS已添加');
     }
+    
     window.addEventListener('keyup', function (e) {
-        console.log(e.keyCode);
         var imgurl = $zoom.find("img").attr("src");
         var index = 0;
         for (var i = 0; i < imgList.length; i++) {
